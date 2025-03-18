@@ -25,6 +25,10 @@ public class Sudoku {
                 return true;
         });
     }
+    
+    public static void limparEntrada(String entradas) {
+    	
+    }
 
     
     public static void novoJogo(Optional<Map<Cordenadas, BlocoSudoku>> o) throws CordenadasInvalidas {
