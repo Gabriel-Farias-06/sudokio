@@ -14,6 +14,7 @@ public class TelaInicial extends JFrame {
 
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 try {
                     TelaInicial frame = new TelaInicial();
@@ -49,6 +50,7 @@ public class TelaInicial extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 EventQueue.invokeLater(new Runnable() {
+                    @Override
                     public void run() {
                         try {
                             ValoresIniciais frame = new ValoresIniciais();
@@ -68,6 +70,18 @@ public class TelaInicial extends JFrame {
         btnSair.setForeground(new Color(220, 20, 60));
         btnSair.setBorder(new LineBorder(new Color(220, 20, 60), 2, true));
         btnSair.setPreferredSize(new Dimension(200, 35)); 
+        btnSair.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                EventQueue.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        dispose();
+                    }
+                });   
+            }
+        });
         contentPane.add(btnSair);
     }
 }
