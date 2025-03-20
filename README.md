@@ -14,9 +14,9 @@ Antes de executar o projeto, certifique-se de ter instalado:
 ### 👅 Clonar o Repositório
 
 Abra um terminal e execute o seguinte comando:
-
+```
 git clone [https://github.com/Gabriel-Farias-06/sudoku-dio.git](https://github.com/Gabriel-Farias-06/sudoku-dio.git)
-
+```
 ### 📂 Navegar até a pasta do projeto
 ```
 cd sudoku-dio
