@@ -1,30 +1,33 @@
-package service;
+package src.service;
 
-import exceptions.CordenadasInvalidas;
-import exceptions.ValorErrado;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
-
-import ui.Jogo;
+import src.ui.Info;
+import src.ui.Jogo;
 
 public class Sudoku {
     private static Map<Cordenadas, Integer> jogo = new HashMap<>();
     private static Map<Cordenadas, Integer> jogoResultado = new HashMap<>();
-    private static String status = "Não Inciado";
 
     public static boolean valorErrado(Cordenadas cordenadas, Integer valorNovo) {
-         return jogo.entrySet().stream().anyMatch(valor -> {
-        	 if((valor.getKey().getCordenadas(0) == cordenadas.getCordenadas(0) || valor.getKey().getCordenadas(1) == cordenadas.getCordenadas(1)) && valor.getValue().equals(valorNovo)) {
-        		 System.out.println(valor);
-        		 return true;
-        	 }
-        	 return false;
-         });
-         }
+        return jogo.entrySet().stream().anyMatch(valor -> 
+            valor.getValue().equals(valorNovo) && !valor.getKey().equals(cordenadas) && (
+                valor.getKey().getCordenadas(0) == cordenadas.getCordenadas(0) ||
+                valor.getKey().getCordenadas(1) == cordenadas.getCordenadas(1) ||
+                (Sudoku.calcularBloco(valor.getKey().getCordenadas(0)) == Sudoku.calcularBloco(cordenadas.getCordenadas(0)) &&
+                 Sudoku.calcularBloco(valor.getKey().getCordenadas(1)) == Sudoku.calcularBloco(cordenadas.getCordenadas(1)))
+            )
+        );
+    }
+
+    private static int calcularBloco(int cordenada) {
+        return (int) Math.floor(cordenada / 3);
+    }
+
     
     public static void limparEntrada(String entradas) {
     	
@@ -48,23 +51,18 @@ public class Sudoku {
             }
         }
         
-        try {
-			Sudoku.novoJogo(Optional.of(valoresLimpos));
-		} catch (CordenadasInvalidas e) {
-			e.printStackTrace();
-		}
+        Sudoku.novoJogo(Optional.of(valoresLimpos));
+
     }
 
     
-    public static void novoJogo(Optional<Map<Cordenadas, Integer>> o) throws CordenadasInvalidas {
-        if(o.isEmpty());
-        else if(o.get().size() > 81) throw new CordenadasInvalidas("Muitos valores informados para um bloco de números");
-        else jogoResultado = o.get();
+    public static void novoJogo(Optional<Map<Cordenadas, Integer>> o) {
+    	
+    	jogoResultado = o.get();
         jogoResultado.entrySet().forEach(valor -> {
             if (valor.getKey().isFixo()) jogo.put(valor.getKey(), valor.getValue());
 	    });
         
-        status = "Em andamento";
         try {
             Jogo frame = new Jogo(jogoResultado);
             frame.setVisible(true);
@@ -74,11 +72,16 @@ public class Sudoku {
     }
 
     public static void adicionarValor(Cordenadas cordenadas, Integer valorNovo) throws Exception {
-        if(Sudoku.valorErrado(cordenadas, valorNovo)) throw new ValorErrado("Valor inválido: " + valorNovo);
-        else if(valorNovo > 9 && valorNovo < 1) throw new ValorErrado("Valor inválido");
-        else {
-        	jogo.put(cordenadas, valorNovo);
+        if(Sudoku.valorErrado(cordenadas, valorNovo)) {
+        	Info frame = new Info("Valor " + valorNovo + " já existe no mesmo bloco/linha/coluna");
+        	frame.setVisible(true);
         }
+        else if(valorNovo > 9 && valorNovo < 1) {
+        	Info frame = new Info("Só são aceito números de 1 a 9!");
+        	frame.setVisible(true);
+        }
+        
+        else jogo.put(cordenadas, valorNovo);
     }
 
     public static void removerValor(Cordenadas cordenadas) {
@@ -86,12 +89,14 @@ public class Sudoku {
         	if (valor.getKey() == cordenadas) jogo.put(cordenadas, 0);
         });
     }
-    
-    public static void exibirStatusJogo() {
-        System.out.println("Status do jogo: " + status);
-    }
 
-    public static void finalizarJogo() {
-        
+
+    public static boolean verificarStatus() {
+        if(jogo.equals(jogoResultado)) return true;
+        else {
+        	Info frame = new Info("O jogo não está completo/correto");
+        	frame.setVisible(true);
+        	return false;
+        }
     }
 }

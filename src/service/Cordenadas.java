@@ -1,15 +1,12 @@
-package service;
-
-import exceptions.CordenadasInvalidas;
+package src.service;
 import java.util.List;
 
 public class Cordenadas implements Comparable<Cordenadas> {
     private List<Integer> cordenadas;
     private boolean fixo;
 
-    public Cordenadas(List<Integer> cordenadas, boolean fixo) throws Exception {
-        if (cordenadas.size() != 2) throw new CordenadasInvalidas("Quantidade de argumentos inválida");
-        else this.cordenadas = cordenadas;
+    public Cordenadas(List<Integer> cordenadas, boolean fixo) {
+        this.cordenadas = cordenadas;
         this.fixo = fixo;
     }
 

@@ -1,4 +1,4 @@
-package ui;
+package src.ui;
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -55,6 +55,7 @@ public class TelaInicial extends JFrame {
                         try {
                             ValoresIniciais frame = new ValoresIniciais();
                             frame.setVisible(true);
+                            dispose();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
