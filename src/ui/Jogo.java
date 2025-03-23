@@ -45,7 +45,7 @@ public class Jogo extends JFrame {
 		
 		JButton btnNewButton = new JButton("Finalizar Jogo");
 		btnNewButton.setForeground(new Color(0, 100, 0));
-		btnNewButton.setBounds(119, 417, 110, 30);
+		btnNewButton.setBounds(119, 417, 120, 30);
 		contentPane.add(btnNewButton);
 		
 		btnNewButton.addActionListener(new ActionListener() {
