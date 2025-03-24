@@ -15,7 +15,7 @@ Antes de executar o projeto, certifique-se de ter instalado:
 
 Abra um terminal e execute o seguinte comando:
 ```
-git clone [https://github.com/Gabriel-Farias-06/sudoku-dio.git](https://github.com/Gabriel-Farias-06/sudoku-dio.git)
+git clone https://github.com/Gabriel-Farias-06/sudoku-dio.git
 ```
 ### 📂 Navegar até a pasta do projeto
 ```
@@ -24,7 +24,7 @@ cd sudoku-dio
 
 ### 🏰️ Compilar o Projeto
 ```
-javac -d bin -sourcepath src src/TelaInicial.java
+javac -d bin -sourcepath src src/ui/TelaInicial.java
 ```
 Isso compilará o código-fonte e colocará os arquivos `.class` na pasta `bin`.
 
