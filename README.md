@@ -1,4 +1,4 @@
-# Sudoku-DIO
+# Sudokio
 
 Este é um projeto de Sudoku desenvolvido com base no curso da DIO em Java Cloud Native.
 
